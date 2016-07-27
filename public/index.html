@@ -13,7 +13,7 @@
 	</style>
   </head>
  
-  <body ng-controller="AppCtrl" style="background-color : #2ba6cb" ng-init="onVisit()">
+  <body ng-controller="AppCtrl" style="background-color : #2ba6cb" ng-init="onVisit()" >
 	<script src="js/angular.min.js"></script>
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -68,7 +68,6 @@ function checkTime(i) {
     }
     return i;
 }
-
 function startTime() {
     var today = new Date();
     var h = today.getHours();
