@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
 //var db = mongojs('192.168.9.29/workerlog', ['workerlog']); // dostep z zewnatrz
+var ip = require('ip');
 var db = mongojs('workerlog', ['workerlog']);
 var bodyParser = require('body-parser');
 
