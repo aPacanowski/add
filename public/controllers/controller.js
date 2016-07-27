@@ -21,9 +21,16 @@ app.controller('AppCtrl', function ($scope, $http, $window) {
 	};
 
 	$scope.onExit = function () {
-		$scope.worker.Time_off = moment().format('HH:mm:ss');
-		$http.put('/workerlog/' + $scope.worker._id, $scope.worker.Timr_off);
-		}
+		$http.get('/workerlog', {
+			params: {Name: $scope.worker.Name
+			}
+		}).success(function(data, status) {
+			$scope.worker._id = data;
+			console.log($scope.worker.Name);
+			$scope.worker.Time_off = moment().add(8, 'hours').format('HH:mm:ss');
+			$http.put('/workerlog/' + $scope.worker._id, $scope.worker.Time_off);
+		});
+	};
 
 	$scope.onVisit = function () {
 		$http.get('http://ipv4.myexternalip.com/json').then(function (result) {
@@ -32,15 +39,15 @@ app.controller('AppCtrl', function ($scope, $http, $window) {
 			//$scope.worker.Time_off = moment().add(8, 'hours').format('HH:mm:ss');
 			$scope.worker.Date = moment().format('DD.MM.YYYY');
 
-
 			$http.post('/workerlog', $scope.worker).success(function (response) {
 				console.log(response);
+				refresh();
 			});
 		}, function (e) {
 			console.log(e);
 		});
-		refresh();
 	};
-$window.onbeforeunload =  $scope.onExit;
+	
+//$window.onbeforeunload =  $scope.onExit;
 });
 
