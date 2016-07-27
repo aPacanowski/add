@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
+// var db = mongojs('192.168.9.29/workerlog', ['workerlog']); // dostep z zewnatrz
 var db = mongojs('workerlog', ['workerlog']);
 var bodyParser = require('body-parser');
 
@@ -33,7 +34,7 @@ app.delete('/workerlog/:id', function (req, res) {
 app.get('/workerlog/:id', function(req, res) {
 	var id = req.params.id;
 	console.log(id);
-	db.workerlog.findOne({_id: mongojs.ObjectId(id)}, function (err,doc) {
+	db.workerlog.findOne({_id: mongojs.ObjectId(id), Time_off: {$exists: false}}, function (err,doc) {
 		res.json(doc);
 	});
 });

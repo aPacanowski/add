@@ -25,10 +25,11 @@ app.controller('AppCtrl', function ($scope, $http, $window) {
 			params: {Name: $scope.worker.Name
 			}
 		}).success(function(data, status) {
-			$scope.worker._id = data;
+			x = [].concat(data);
+			$scope.worker = x[0];
 			console.log($scope.worker.Name);
 			$scope.worker.Time_off = moment().add(8, 'hours').format('HH:mm:ss');
-			$http.put('/workerlog/' + $scope.worker._id, $scope.worker.Time_off);
+			$http.put('/workerlog/' + $scope.worker._id, {Time_off: $scope.worker.Time_off});
 		});
 	};
 
