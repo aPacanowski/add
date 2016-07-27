@@ -1,7 +1,5 @@
 var app = angular.module('MyApp', []);
 
-
-
 app.controller('AppCtrl', function ($scope, $http, $window) {
 	var refresh = function(){
 	$http.get('/workerlog').success(function(response){
@@ -11,7 +9,6 @@ app.controller('AppCtrl', function ($scope, $http, $window) {
 	};
 	
 	$scope.worker = {};
-
 
 	$scope.remove = function (id) {
 		console.log(id);
@@ -28,7 +25,7 @@ app.controller('AppCtrl', function ($scope, $http, $window) {
 			x = [].concat(data);
 			$scope.worker = x[0];
 			console.log($scope.worker.Name);
-			$scope.worker.Time_off = moment().add(8, 'hours').format('HH:mm:ss');
+			$scope.worker.Time_off = moment().format('HH:mm:ss');
 			$http.put('/workerlog/' + $scope.worker._id, {Time_off: $scope.worker.Time_off});
 		});
 	};
@@ -37,9 +34,7 @@ app.controller('AppCtrl', function ($scope, $http, $window) {
 		$http.get('http://ipv4.myexternalip.com/json').then(function (result) {
 			$scope.worker.Name = result.data.ip;
 			$scope.worker.Time_on = moment().format('HH:mm:ss');
-			//$scope.worker.Time_off = moment().add(8, 'hours').format('HH:mm:ss');
 			$scope.worker.Date = moment().format('DD.MM.YYYY');
-
 			$http.post('/workerlog', $scope.worker).success(function (response) {
 				console.log(response);
 				refresh();
@@ -49,6 +44,5 @@ app.controller('AppCtrl', function ($scope, $http, $window) {
 		});
 	};
 	
-//$window.onbeforeunload =  $scope.onExit;
+$window.onunload =  $scope.onExit();
 });
-
