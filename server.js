@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
-// var db = mongojs('192.168.9.29/workerlog', ['workerlog']); // dostep z zewnatrz
+//var db = mongojs('192.168.9.29/workerlog', ['workerlog']); // dostep z zewnatrz
 var db = mongojs('workerlog', ['workerlog']);
 var bodyParser = require('body-parser');
 
@@ -41,11 +41,8 @@ app.get('/workerlog/:id', function(req, res) {
 app.put('/workerlog/:id', function(req, res) {
 	var id = req.params.id;
 	console.log('edited successfully');
-	db.workerlog.update({query: {_id: mongojs.ObjectId(id)},
-		update: {$set: {Time_off: req.body.Time_off}},
-		new: true}, function (err, doc){
-			res.json(doc);
-		});
+	db.workerlog.update({_id: mongojs.ObjectId(id)},
+		{$set: {Time_off: req.body.Time_off}});
 });
 
 
