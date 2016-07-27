@@ -30,6 +30,24 @@ app.delete('/workerlog/:id', function (req, res) {
 		res.json(doc);
 	});
 });
+app.get('/workerlog/:id', function(req, res) {
+	var id = req.params.id;
+	console.log(id);
+	db.workerlog.findOne({_id: mongojs.ObjectId(id)}, function (err,doc) {
+		res.json(doc);
+	});
+});
+app.put('/workerlog/:id', function(req, res) {
+	var id = req.params.id;
+	console.log('edited successfully');
+	db.workerlog.update({query: {_id: mongojs.ObjectId(id)},
+		update: {$set: {Time_off: req.body.Time_off}},
+		new: true}, function (err, doc){
+			res.json(doc);
+		});
+});
+
+
 
 app.listen(3000);
 console.log("Server running on port 3000");
