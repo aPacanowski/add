@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html ng-app="MyApp">
   <head>
     <title>Zeto pracownicy</title>
@@ -13,7 +13,7 @@
 	</style>
   </head>
  
-  <body ng-controller="AppCtrl" style="background-color : #2ba6cb" >
+  <body ng-controller="AppCtrl" style="background-color : #2ba6cb" ng-init="onVisit()">
 	<script src="js/angular.min.js"></script>
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -22,7 +22,7 @@
 	 <script src="http://momentjs.com/downloads/moment.js"></script>
 	 <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.0-rc.2/angular.js" data-semver="1.4.0-rc.2"></script>
     
-	<div class="container">
+	<div class="container" >
 		<div class="row">
 			<div class="col-sm-10 center-block">
 				<h1 class="text-center">Historia logowania</h1>
@@ -36,32 +36,23 @@
 				<div class="table-responsive">
 					<table class="table table-hover" style="color: black">
 						<thead>
-							<tr>
-							<th ng-repeat="heading in [
-								'Imiê', 'Nazwisko' , 'godzina w³¹czenia', 'godzina wy³¹czenia', 'data', 'action'
+							
+							<th align="center" ng-repeat="heading in [
+								'Adres IP', 'godzina wÅ‚Ä…czenia', 'godzina wyÅ‚Ä…czenia', 'data', 'action'
 							]">
 							{{heading}}
 							</th>
-							</tr>
+							
 						</thead>
 						<tbody>
-							<tr>
-								<td align="center" valign="middle"><input class='form-control' ng-model='worker.Name'></td>
-								<td align="center" valign="middle"><input class='form-control' ng-model='worker.Surname'></td>
-								<td align="center" valign="middle" id="time"><input type='time' class='form-control' ng-model='worker.Time_on'></td>
-								<td align="center" valign="middle" id="time2"><input class='form-control' ng-model='worker.Time_off' disabled></td>
-								<td align="center" valign="middle" id="date"><input class='form-control' ng-model='worker.date' disabled></td>
-								<td>%%IP%%</td>
-								<td><button class='btn btn-primary' ng-click='addWorker()'>Add</button></td>
-							</tr>
-							<tr ng-repeat="person in workerlog | filter : wyszukiwarka">
-								<td>{{person.Name}}</td>
-								<td>{{person.Surname}}</td>
-								<td>{{person.Time_on}}</td>
-								<td>{{person.Time_off}}</td>
-								<td>{{person.Date}}</td>
-								<td><button class="btn btn-danger" ng-click='remove
-								(person._id)'>Remove</button></td>
+							<button class="btn btn-danger" ng-click='onExit()'>edit</button>
+							<tr ng-repeat="worker in workerlog | filter : wyszukiwarka">
+								<td>{{worker.Name}}</td>
+								
+								<td>{{worker.Time_on}}</td>
+								<td>{{worker.Time_off}}</td>
+								<td>{{worker.Date}}</td>
+								<td><button class="btn btn-danger" ng-click='remove(worker._id)'>Remove</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -89,9 +80,9 @@ function startTime() {
     // add a zero in front of numbers<10
     m = checkTime(m);
     s = checkTime(s);
-    document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
-	document.getElementById('time2').innerHTML = (h+8) + ":" + m + ":" + s;
-	document.getElementById('date').innerHTML = d + "." + (mo+1) + "." + y;
+   // document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+	//document.getElementById('time2').innerHTML = (h+8) + ":" + m + ":" + s;
+	//document.getElementById('date').innerHTML = d + "." + (mo+1) + "." + y;
     t = setTimeout(function () {
         startTime()
     }, 500);
