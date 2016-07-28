@@ -45,8 +45,8 @@
 							
 						</thead>
 						<tbody>
-							<button class="btn btn-danger" ng-click='onExit()'>edit</button>
-							<tr ng-repeat="worker in workerlog | filter : wyszukiwarka">
+							<button class="btn btn-danger" ng-click='onExit()'>Wyjście</button>
+							<tr ng-repeat="worker in workerlog | orderBy:['-Time_on','Date','Time_off'] | filter : wyszukiwarka">
 								<td>{{worker.Name}}</td>
 								
 								<td>{{worker.Time_on}}</td>
