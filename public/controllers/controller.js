@@ -18,31 +18,25 @@ app.controller('AppCtrl', function ($scope, $http, $window) {
 	};
 
 	$scope.onExit = function () {
-		$http.get('/workerlog', {
+	console.log($scope.worker.Name);
+		$http.get('/workerlog/', {
 			params: {Name: $scope.worker.Name
 			}
 		}).success(function(data, status) {
 			x = [].concat(data);
 			$scope.worker = x[0];
-			console.log($scope.worker.Name);
-			$scope.worker.Time_off = moment().format('HH:mm:ss');
-			$http.put('/workerlog/' + $scope.worker._id, {Time_off: $scope.worker.Time_off});
+			console.log($scope.worker._id);
+			$http.put('/workerlog/' + $scope.worker._id);
+			refresh();
 		});
 	};
-
-	$scope.onVisit = function () {
-		$http.get('http://ipv4.myexternalip.com/json').then(function (result) {
-			$scope.worker.Name = result.data.ip;
-			$scope.worker.Time_on = moment().format('HH:mm:ss');
-			$scope.worker.Date = moment().format('DD.MM.YYYY');
+	
+	$scope.onVisit = function () { 
 			$http.post('/workerlog', $scope.worker).success(function (response) {
 				console.log(response);
 				refresh();
 			});
-		}, function (e) {
-			console.log(e);
-		});
 	};
-	
+
 $window.onunload =  $scope.onExit();
 });
